@@ -74,6 +74,7 @@ export async function main(ns) {
 
 	while (true) {
 		ns.print(`INFO Upgrading all servers to ${pRam}GB`);
+		ns.print("Next purchase cost: " + ns.getPurchasedServerCost(pRam));
 		await autoUpgradeServers();
 		ns.print("SUCCESS Upgraded all servers to " + pRam + "GB");
 		if (pRam === maxRam) {
