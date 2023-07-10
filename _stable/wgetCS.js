@@ -1,6 +1,6 @@
 /** @param {NS} ns */
 export async function main(ns) {
-    const root = "https://raw.githubusercontent.com/chrisrabe/bitburner-automation/main/_stable/";
+    const root = "https://raw.githubusercontent.com/hannah98/bitburner-automation/main/_stable/";
     const files = [
         "ap-hacknet-node.js","aps-lite.js","auto-deploy.js","auto-purchase-server.js","auto-starter.js",
         "book-keeper.js","captain.js","corp-division-manager.js","corp-marketer.js","corp-product-manager.js",
