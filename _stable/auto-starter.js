@@ -3,6 +3,7 @@ import { pushToInputPort, checkForEvent, createUUID } from "./port-utils.js";
 /** @param {NS} ns **/
 export async function main(ns) {
 	ns.disableLog("ALL");
+	let overrideServer = ns.args[0]
 	// Port fields
 	const uuid = createUUID();
 	const reqDuration = 250;
@@ -85,7 +86,10 @@ export async function main(ns) {
 
 	async function updateTargetIfApplicable() {
 		const targets = await requestData(dataType.targets);
-		const newTarget = targets[0].node;
+		let newTarget = targets[0].node;
+		if (overrideServer){
+			newTarget = overrideServer
+		}
 		if (newTarget != curTarget) {
 			ns.print(`WARN Swapping targets: ${curTarget} -> ${newTarget}`);
 			ns.scriptKill(autoDeployScript, homeServ);
