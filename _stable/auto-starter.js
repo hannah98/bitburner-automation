@@ -1,4 +1,4 @@
-import { pushToInputPort, checkForEvent, createUUID } from "./port-utils.js";
+import { pushToInputPort, checkForEvent, createUUID } from "archive/port-utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -11,10 +11,10 @@ export async function main(ns) {
 	const port = 18;
 
 	// Auto starter fields
-	const autoDeployScript = "auto-deploy.js";
-	const autoPurchaseServerScript = "auto-purchase-server.js";
-	const apsLiteScript = "aps-lite.js"
-	const launchFleetsScript = "launch-fleets.js";
+	const autoDeployScript = "archive/auto-deploy.js";
+	const autoPurchaseServerScript = "archive/auto-purchase-server.js";
+	const apsLiteScript = "archive/aps-lite.js"
+	const launchFleetsScript = "archive/launch-fleets.js";
 	const homeServ = "home";
 	const tick = 10000; // 10s
 	let curTarget = "n00dles";
@@ -27,8 +27,8 @@ export async function main(ns) {
 	// If undefined, no need to pass arguments
 	// Each service needs a port number and a delay to use as args
 	const dependencies = {
-		'queue-service.js': undefined,
-		'strategist.js': {
+		'archive/queue-service.js': undefined,
+		'archive/strategist.js': {
 			port: 1,
 			delay: 50
 		}

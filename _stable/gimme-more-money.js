@@ -29,9 +29,9 @@ export async function main(ns) {
 	};
 
 	const viruses = [
-		'hack-pirate.js',
-		'weaken-pirate.js',
-		'grow-pirate.js'
+		'archive/hack-pirate.js',
+		'archive/weaken-pirate.js',
+		'archive/grow-pirate.js'
 	];
 
 	const virusRam = viruses.reduce((sum, virus) => {
@@ -556,7 +556,7 @@ export async function main(ns) {
 	//  	 Launching attack
 	// ==============================
 
-	const getVirusFromAction = (action) => `${action}-pirate.js`;
+	const getVirusFromAction = (action) => `archive/${action}-pirate.js`;
 
 	function logShipAction(ship, action, target) {
 		let variant = "INFO";

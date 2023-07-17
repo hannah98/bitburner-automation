@@ -1,4 +1,4 @@
-import { getPotentialTargets } from "./find-targets.js";
+import { getPotentialTargets } from "archive/find-targets.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {

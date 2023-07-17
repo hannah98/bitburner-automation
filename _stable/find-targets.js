@@ -4,7 +4,7 @@ import {
 	getThresholds,
 	getRootAccess,
 	canPenetrate
-} from "./utils.js";
+} from "archive/utils.js";
 
 function getComparator(compareField) {
 	return (a, b) => {

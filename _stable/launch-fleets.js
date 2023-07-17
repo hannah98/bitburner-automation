@@ -1,11 +1,11 @@
-import { getPotentialTargets, getStrategy } from "./find-targets.js";
+import { getPotentialTargets, getStrategy } from "archive/find-targets.js";
 import {
 	getNetworkNodes,
 	canPenetrate,
 	getRootAccess,
 	hasRam,
 	getThresholds
-} from "./utils.js";
+} from "archive/utils.js";
 
 /** 
  * Launches a coordinated attack on the network to
@@ -21,7 +21,7 @@ export async function main(ns) {
 	var homeServ = ns.getHostname();
 	var attackDelay = 50; // time (ms) between attacks
 
-	var virus = "pirate.js";
+	var virus = "archive/pirate.js";
 	var virusRam = ns.getScriptRam(virus);
 
 	var actions = {

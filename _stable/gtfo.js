@@ -31,7 +31,7 @@ export async function main(ns) {
 	}
 
 	const homeServ = "home";
-	const trader = "diamond-hands.js";
+	const trader = "archive/diamond-hands.js";
 
 	if (ns.scriptRunning(trader, homeServ)) {
 		ns.scriptKill(trader, homeServ);

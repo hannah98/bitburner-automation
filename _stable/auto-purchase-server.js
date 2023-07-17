@@ -9,7 +9,7 @@ export async function main(ns) {
 	var maxRam = ns.getPurchasedServerMaxRam();
 	var maxServers = ns.getPurchasedServerLimit();
 
-	var virus = "gimme-money.js";
+	var virus = "archive/gimme-money.js";
 	var virusRam = ns.getScriptRam(virus);
 
 	function canPurchaseServer() {
