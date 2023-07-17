@@ -1,14 +1,3 @@
-// This script is awesome and will autocomplete the infiltrate tasks in bitburner.
-// It does not always run properly, it could be a browser issue and works 95% with game running on edge browser.
-// This was copied from https://pastebin.com/7DuFYDpJ and modified to work with shadows of anarchy augments.
-// Type "wget https://raw.githubusercontent.com/5p0ng3b0b/bitburner-scripts/main/autoinfiltrate.js autoinfiltrate.js" from you home terminal to download.
-// Type 'run autoinfiltrate.js' from home terminal. options are --start --stop --quiet although the --start option is not required.
-// Try always running it via an alias eg 'alias autoinfil="run autoinfiltrate.js --stop --quiet; run autoinfiltrate.js --quiet""
-// Once the script is running, It will activate when you visit any company and click the infiltrate button.
-// You can use infiltrate to quickly get alot of money early in the game or quickly earn rep for any faction.
-// ecorp in Aevum is the highest earner followed by megacorp in sector-12 and then KuaiGong International in Chongqing.
-
-
 const state = {
 	// Name of the company that's infiltrated.
 	company: "",
@@ -22,8 +11,8 @@ const state = {
 	game: {},
 };
 
-// Speed of game actions, in milliseconds. Default 22
-const speed = 50;
+// Speed of game actions, in milliseconds.
+const speed = 30;
 
 // Small hack to save RAM.
 // This will work smoothly, because the script does not use
@@ -31,28 +20,17 @@ const speed = 50;
 const wnd = eval("window");
 const doc = wnd["document"];
 
+// Auto sell infiltration data, set to false if you want rep
+const autoSell = false;
+const autoRep = false;
+const factionForRep = "Slum Snakes";
 // List of all games and an automated solver.
 const infiltrationGames = [
 	{
 		name: "type it",
 		init: function (screen) {
-			const lines = getLines(getEl(screen, "p"));
-			state.game.data = lines[0].split("");
-		},
-		play: function (screen) {
-			if (!state.game.data || !state.game.data.length) {
-				delete state.game.data;
-				return;
-			}
-
-			pressKey(state.game.data.shift());
-		},
-	},	
-	{
-		name: "type it backward",
-		init: function (screen) {
-			const lines = getLines(getEl(screen, "p"));
-			state.game.data = lines[0].split("");
+			const lines = screen.children[1].textContent;
+			state.game.data = lines.split("");
 		},
 		play: function (screen) {
 			if (!state.game.data || !state.game.data.length) {
@@ -82,6 +60,8 @@ const infiltrationGames = [
 					break;
 				case "→":
 					pressKey("d");
+					break;
+				default:
 					break;
 			}
 		},
@@ -161,7 +141,7 @@ const infiltrationGames = [
 				"patient",
 				"dynamic",
 				"loyal",
-				"based",
+				"straightforward"
 			];
 			const word = getLines(getEl(screen, "h5"))[1];
 
@@ -410,6 +390,7 @@ const infiltrationGames = [
 
 					if (!wireColor[color]) {
 						// should never happen.
+						console.error('No wire color found!');
 						continue;
 					}
 
@@ -468,7 +449,7 @@ export async function main(ns) {
 	}
 
 	print(
-		"Automated infiltration is enabled...\nVWhen you visit the infiltration screen of any company, all tasks are completed automatically."
+		"Automated infiltration is enabled...\nWhen you visit the infiltration screen of any company, all tasks are completed automatically."
 	);
 
 	endInfiltration();
@@ -557,9 +538,12 @@ function getLines(elements) {
  * Reset the state after infiltration is done.
  */
 function endInfiltration() {
+	console.log("Ending automatic infiltration of", state.company);
 	unwrapEventListeners();
 	state.company = "";
 	state.started = false;
+	delete state.game.data;
+	state.game.current = "";
 }
 
 /**
@@ -636,21 +620,47 @@ function playGame() {
 	const screens = doc.querySelectorAll(".MuiContainer-root");
 
 	if (!screens.length) {
-		endInfiltration();
+		//endInfiltration();
 		return;
 	}
 
+	// the correct screen is always the last one
 	const screen = screens[0].lastChild;
+	if (!screen) { return; }
 	const h4 = getEl(screen, "h4");
 
 	if (!h4.length) {
 		endInfiltration();
 		return;
 	}
-
-	const title = h4[0].textContent.trim().toLowerCase().split(/[!.(]/)[0];
-
+	let title = h4[0].textContent.trim().toLowerCase().split(/[!.(]/)[0];
 	if ("infiltration successful" === title) {
+		if (autoSell) {
+			let btnSell = [...doc.querySelectorAll('button')].find(btn => btn.textContent.includes('Sell'));
+			btnSell[Object.keys(btnSell)[1]].onClick({ isTrusted: true });
+		} else if (autoRep) {
+			// open the drop down list.
+			let dropDown = [...doc.querySelectorAll('.MuiSelect-select')].find(btn => btn.textContent.includes('none'))
+			dropDown.dispatchEvent(
+				new MouseEvent('mousedown', {
+					view: wnd,
+					bubbles: true,
+					cancelable: true,
+					buttons: 1
+				})
+			);
+			// Get the faction list item and the rep button
+			let btnFaction = [...doc.querySelectorAll('.MuiMenuItem-root')].find(btn => btn.textContent.includes(factionForRep));
+			let btnRep = [...doc.querySelectorAll('button')].find(btn => btn.textContent.includes('Trade'));
+			// make sure the faction button exists
+			if (!btnFaction) {
+				console.log(factionForRep + " is not an available faction.");
+			} else {
+				// click the buttons
+				btnFaction.click();
+				btnRep.click();
+			}
+		}
 		endInfiltration();
 		return;
 	}
@@ -658,15 +668,15 @@ function playGame() {
 	if ("get ready" === title) {
 		return;
 	}
-
+	if (title.includes('backward')) { title = 'type it'; }
 	const game = infiltrationGames.find((game) => game.name === title);
 
 	if (game) {
 		if (state.game.current !== title) {
+			if (!title.includes('mines')) { delete state.game.data; }
 			state.game.current = title;
 			game.init(screen);
 		}
-
 		game.play(screen);
 	} else {
 		console.error("Unknown game:", title);
