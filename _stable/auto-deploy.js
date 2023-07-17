@@ -3,7 +3,7 @@ import {
 	canPenetrate,
 	hasRam,
 	getRootAccess,
-} from "archive/utils.js";
+} from "./utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -16,7 +16,7 @@ export async function main(ns) {
 		"SQLInject.exe": ns.sqlinject
 	};
 
-	var virus = "archive/gimme-money.js";
+	var virus = "gimme-money.js";
 	var virusRam = ns.getScriptRam(virus);
 
 	async function copyAndRunVirus(server) {

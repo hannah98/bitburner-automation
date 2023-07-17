@@ -3,7 +3,7 @@ import {
 	minInputPort,
 	maxInputPort,
 	outputPort
-} from "archive/port-utils.js";
+} from "./port-utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {

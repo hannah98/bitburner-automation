@@ -1,4 +1,4 @@
-import { pushToInputPort, checkForEvent } from "archive/port-utils.js";
+import { pushToInputPort, checkForEvent } from "./port-utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -10,7 +10,7 @@ export async function main(ns) {
 	const reqEvent = "reqAttack";
 	const resEvent = "resAttack";
 
-	const virus = "archive/pirate.js";
+	const virus = "pirate.js";
 
 	function logShipAction(ship, action, target) {
 		let variant = "INFO";

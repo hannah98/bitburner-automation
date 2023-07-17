@@ -30,10 +30,10 @@ const researchNames = {
 }
 
 const corpScripts = {
-	recruiter: 'archive/corp-recruiter.js',
-	researcher: 'archive/corp-researcher.js',
-	marketer: 'archive/corp-marketer.js',
-	productManager: 'archive/corp-product-manager.js'
+	recruiter: 'corp-recruiter.js',
+	researcher: 'corp-researcher.js',
+	marketer: 'corp-marketer.js',
+	productManager: 'corp-product-manager.js'
 }
 
 

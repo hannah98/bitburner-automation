@@ -1,4 +1,4 @@
-import { pushToInputPort, checkForEvent, createUUID } from "archive/port-utils.js";
+import { pushToInputPort, checkForEvent, createUUID } from "./port-utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -15,18 +15,18 @@ export async function main(ns) {
 	// If undefined, no need to pass arguments
 	// Each service needs a port number and a delay to use as args
 	const dependencies = {
-		'archive/watchtower.js': undefined,
-		'archive/queue-service.js': undefined,
-		'archive/diamond-hands.js': undefined,
-		'archive/strategist.js': {
+		'watchtower.js': undefined,
+		'queue-service.js': undefined,
+		'diamond-hands.js': undefined,
+		'strategist.js': {
 			port: 1,
 			delay: 50
 		},
-		'archive/book-keeper.js': {
+		'book-keeper.js': {
 			port: 2,
 			delay: 50
 		},
-		'archive/warmonger.js': {
+		'warmonger.js': {
 			port: 3,
 			delay: 50
 		}
@@ -45,7 +45,7 @@ export async function main(ns) {
 		g: 'grow'
 	};
 
-	var virus = "archive/pirate.js";
+	var virus = "pirate.js";
 	var virusRam = ns.getScriptRam(virus);
 
 	async function requestData(type, payload = {}) {

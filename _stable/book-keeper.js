@@ -3,8 +3,8 @@ import {
 	canPenetrate,
 	getRootAccess,
 	hasRam,
-} from "archive/utils.js";
-import { pushToInputPort, checkForEvent } from "archive/port-utils.js";
+} from "./utils.js";
+import { pushToInputPort, checkForEvent } from "./port-utils.js";
 
 /** @param {NS} ns **/
 export async function main(ns) {
@@ -25,7 +25,7 @@ export async function main(ns) {
 		"SQLInject.exe": ns.sqlinject
 	};
 
-	const virus = "archive/pirate.js";
+	const virus = "pirate.js";
 	const virusRam = ns.getScriptRam(virus);
 
 	// Returns list of controllable servers
