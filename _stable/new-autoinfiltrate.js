@@ -108,6 +108,10 @@ const infiltrationGames = [
 				pressKey(" ");
 				state.game.data = "done";
 			}
+			if ("done" === state.game.data) {
+				pressKey(" ");
+			}
+            
 
 			// Attack in next frame - instant attack sometimes
 			// ends in failure.
