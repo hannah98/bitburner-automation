@@ -48,8 +48,8 @@ const infiltrationGames = [
   {
     name: "type it backward",
     init: function (screen) {
-      const lines = getLines(getEl(screen, "p"));
-      state.game.data = lines[0].split("");
+      const lines = screen.children[1].textContent;
+      state.game.data = lines.split("");
     },
     play: function (screen) {
       if (!state.game.data || !state.game.data.length) {
@@ -79,6 +79,8 @@ const infiltrationGames = [
           break;
         case "→":
           pressKey("d");
+          break;
+        default:
           break;
       }
     },
@@ -114,7 +116,7 @@ const infiltrationGames = [
     },
   },
   {
-    name: "slash when his guard is down",
+    name: "attack when his guard is down",
     init: function (screen) {
       state.game.data = "wait";
       state.game.waitFrames = 45
@@ -157,7 +159,7 @@ const infiltrationGames = [
         "patient",
         "dynamic",
         "loyal",
-        "straightforward",
+        "straightforward"
       ];
       const word = getLines(getEl(screen, "h5"))[1];
 
@@ -406,6 +408,7 @@ const infiltrationGames = [
 
           if (!wireColor[color]) {
             // should never happen.
+            console.error('No wire color found!');
             continue;
           }
 
@@ -931,3 +934,4 @@ function cancelMyTimeout() {
     postTimeout = null
   }
 }
+
