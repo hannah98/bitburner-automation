@@ -46,7 +46,7 @@ const doc = wnd["document"];
 // List of all games and an automated solver.
 const infiltrationGames = [
   {
-    name: "type it backward",
+    name: "type it",
     init: function (screen) {
       const lines = screen.children[1].textContent;
       state.game.data = lines.split("");
