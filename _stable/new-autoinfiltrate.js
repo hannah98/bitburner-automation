@@ -103,20 +103,27 @@ const infiltrationGames = [
 		},
 		play: function (screen) {
 			const data = getLines(getEl(screen, "h4"));
-
-			if ("attack" === state.game.data) {
+            console.dir(data);
+            console.dir(state.game)
+			if ("attack3" === state.game.data) {
 				pressKey(" ");
 				state.game.data = "done";
 			}
-			if ("done" === state.game.data) {
+			else if ("attack2" === state.game.data) {
+				state.game.data = "attack3";
+			}
+			else if ("attack1" === state.game.data) {
+				state.game.data = "attack2";
+			}
+			else if ("done" === state.game.data) {
 				pressKey(" ");
 			}
             
 
 			// Attack in next frame - instant attack sometimes
 			// ends in failure.
-			if ('wait' === state.game.data && -1 !== data.indexOf("Preparing?")) {
-				state.game.data = "attack";
+			else if ('wait' === state.game.data && -1 !== data.indexOf("Preparing?")) {
+				state.game.data = "attack1";
 			}
 		},
 	},
