@@ -104,7 +104,7 @@ const infiltrationGames = [
 		play: function (screen) {
 			const data = getLines(getEl(screen, "h4"));
             console.dir(data);
-            console.dir(state.game)
+            console.dir(state.game.data)
 			if ("attack3" === state.game.data) {
 				pressKey(" ");
 				state.game.data = "done";
@@ -683,6 +683,7 @@ function playGame() {
 	const game = infiltrationGames.find((game) => game.name === title);
 
 	if (game) {
+        console.log(title);
 		if (state.game.current !== title) {
 			if (!title.includes('mines')) { delete state.game.data; }
 			state.game.current = title;
